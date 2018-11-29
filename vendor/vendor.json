@@ -1,6 +1,25 @@
 {
 	"comment": "",
 	"ignore": "test",
-	"package": [],
+	"package": [
+		{
+			"checksumSHA1": "JVFRca2/J31CSk8n9bhlwIH43D8=",
+			"path": "github.com/gin-gonic/gin",
+			"revision": "b97ccf3a43d2901d295870b5876277bf478a4909",
+			"revisionTime": "2018-11-26T15:01:51Z"
+		},
+		{
+			"checksumSHA1": "BVLcEDQelqXp6x9u4mbrxE7rxKs=",
+			"path": "github.com/jinzhu/gorm",
+			"revision": "472c70caa40267cb89fd8facb07fe6454b578626",
+			"revisionTime": "2018-11-03T14:14:39Z"
+		},
+		{
+			"checksumSHA1": "4eelJOSLZoDzLuaJvgilOBVNovU=",
+			"path": "github.com/jinzhu/inflection",
+			"revision": "04140366298a54a039076d798123ffa108fff46c",
+			"revisionTime": "2018-03-08T03:36:59Z"
+		}
+	],
 	"rootPath": "github.com/cptspookz/doasanca-api"
 }
