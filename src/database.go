@@ -1,7 +1,11 @@
 package main
 
 import (
+    "os"
+    "log"
+    "database/sql"
     "time"
+
     "github.com/jinzhu/gorm"
     _ "github.com/jinzhu/gorm/dialects/postgres" 
 )
@@ -37,6 +41,10 @@ type Location struct {
     Date        time.Time
 }
 
-func main() {
 
+func setupDB() {
+    db, err := sql.Open("postgres", os.Getenv("DATABASE_URL"))
+    if err != nil {
+        log.Fatalf("Error while connecting database: %q", err)
+    }
 }
