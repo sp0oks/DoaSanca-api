@@ -3,8 +3,9 @@ package main
 import (
     "os"
     "log"
-    "database/sql"
+    "context"
     "time"
+    "database/sql"
 
     "github.com/jinzhu/gorm"
     _ "github.com/jinzhu/gorm/dialects/postgres" 
@@ -43,8 +44,16 @@ type Location struct {
 
 
 func setupDB() {
+    ctx := context.Background()
     db, err := sql.Open("postgres", os.Getenv("DATABASE_URL"))
+    
     if err != nil {
         log.Fatalf("Error while connecting database: %q", err)
+    }
+    
+    err = db.PingContext(ctx)
+    
+    if err != nil {
+        log.Fatalf("Error while checking connection to the database: %q", err)
     }
 }
