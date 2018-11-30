@@ -22,13 +22,13 @@ func main() {
 		c.String(http.StatusOK, "Hello user!")
 	})
 
-    router.GET("/:name", func(c *gin.Context) {
+    router.GET("/locais/:name", func(c *gin.Context) {
         name := c.Param("name")
-		c.String(http.StatusOK, "Hello %s!", name)
+		c.String(http.StatusOK, "Página do local %s!", name)
 	})
    
     db, err := setupDB()
-    router.GET("/pingdb", func(c *gin.Context) {
+    router.GET("/db/status", func(c *gin.Context) {
         err = pingDB(db)
         
         if err != nil {
