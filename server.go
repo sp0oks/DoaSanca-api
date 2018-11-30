@@ -12,7 +12,8 @@ func main() {
     port := os.Getenv("PORT")
     
     if port == "" {
-        log.Fatal("$PORT must be set")
+        log.Printf("$PORT not set, defaulting PORT to 8080.\n")
+        port = "8080"
     }
 
     router := gin.New()
@@ -27,7 +28,7 @@ func main() {
 		c.String(http.StatusOK, "Página do local %s!", name)
 	})
    
-    db, err := setupDB()
+    db, err := getDB()
     router.GET("/db/status", func(c *gin.Context) {
         err = pingDB(db)
         
