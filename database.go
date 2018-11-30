@@ -3,6 +3,7 @@ package main
 import (
     "os"
     "log"
+    "errors"
     "context"
     "time"
     "database/sql"
@@ -42,18 +43,23 @@ type Location struct {
     Date        time.Time
 }
 
-
-func setupDB() {
+func pingDB(db *sql.DB) error {
     ctx := context.Background()
+    err := db.PingContext(ctx)
+    
+    if err != nil {
+        errors.New("Error while checking connection to the database")
+    }
+
+    return err
+}
+
+func setupDB() (*sql.DB, error) {
     db, err := sql.Open("postgres", os.Getenv("DATABASE_URL"))
-    
+
     if err != nil {
-        log.Fatalf("Error while connecting database: %q", err)
+        err = errors.New("Error while opening database")
     }
     
-    err = db.PingContext(ctx)
-    
-    if err != nil {
-        log.Fatalf("Error while checking connection to the database: %q", err)
-    }
+    return db, err
 }
