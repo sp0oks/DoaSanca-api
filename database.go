@@ -22,7 +22,7 @@ func pingDB() error {
 
 func setupDB() error {
     err := pingDB()
-    if err != nil {
+    if err == nil {
         if !db.HasTable(&User{}) {
             db.CreateTable(&User{})
             db.Create(&User{
