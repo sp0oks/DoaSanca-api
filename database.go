@@ -61,12 +61,9 @@ func getLocationByName(name string) Location {
     return location
 }
 
-func getLocations() Location {
-    var locations Location
+func getLocations() []Location {
+    var locations []Location
     db.Find(&locations)
-    if db.RecordNotFound() {
-        locations.Name = ""
-    }
     return locations
 }
 

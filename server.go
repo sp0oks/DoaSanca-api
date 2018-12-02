@@ -52,7 +52,7 @@ func main() {
     // API routes
     router.GET("/locais", func(c *gin.Context) {
         response := getLocations()
-        if response.Name == "" {
+        if len(response) == 0 {
             c.JSON(http.StatusNoContent, "No results were found.")
         } else {
             c.JSON(http.StatusOK, response)
