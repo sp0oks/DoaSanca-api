@@ -101,4 +101,3 @@ func saveNewUser(usr User) error {
     }
     return err
 }
-

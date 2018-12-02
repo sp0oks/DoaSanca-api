@@ -9,6 +9,12 @@
 			"revisionTime": "2018-11-26T15:01:51Z"
 		},
 		{
+			"checksumSHA1": "yNyE9MrpDJQAxOxSipSIBgBhuNQ=",
+			"path": "github.com/google/uuid",
+			"revision": "9b3b1e0f5f99ae461456d768e7d301a7acdaa2d8",
+			"revisionTime": "2018-09-17T14:00:05Z"
+		},
+		{
 			"checksumSHA1": "BVLcEDQelqXp6x9u4mbrxE7rxKs=",
 			"path": "github.com/jinzhu/gorm",
 			"revision": "472c70caa40267cb89fd8facb07fe6454b578626",
@@ -43,6 +49,28 @@
 			"path": "github.com/lib/pq/oid",
 			"revision": "9eb73efc1fcc404148b56765b0d3f61d9a5ef8ee",
 			"revisionTime": "2018-10-16T16:26:27Z"
+		},
+		{
+			"checksumSHA1": "aFpql3G+Nw8zkzfqLWQJNZC8pu0=",
+			"path": "golang.org/x/net/context/ctxhttp",
+			"revision": "351d144fa1fc0bd934e2408202be0c29f25e35a0",
+			"revisionTime": "2018-11-30T00:35:12Z"
+		},
+		{
+			"checksumSHA1": "7Ev/X4Xe8P3961myez/hBKO05ig=",
+			"path": "golang.org/x/time/rate",
+			"revision": "85acf8d2951cb2a3bde7632f9ff273ef0379bcbd",
+			"revisionTime": "2018-11-08T03:19:45Z"
+		},
+		{
+			"path": "googlemaps.github.io/maps",
+			"revision": ""
+		},
+		{
+			"checksumSHA1": "2BajJS14EhaourgaOfiqxCcSJDA=",
+			"path": "googlemaps.github.io/maps/internal",
+			"revision": "1d143d7e96e5d9451f4f94ddc785d36827add393",
+			"revisionTime": "2018-11-29T11:35:24Z"
 		}
 	],
 	"rootPath": "github.com/cptspookz/doasanca-api"
