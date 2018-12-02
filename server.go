@@ -57,11 +57,8 @@ func main() {
     })
     router.POST("/locais/", func(c *gin.Context) {
         var request Location
-        if err = c.ShouldBindJSON(&request); err != nil {
-            c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-        } else {
-            c.JSON(http.StatusOK, gin.H{"status": "Request was recorded successfully!"})
-        }
+        c.BindJSON(&request)
+        c.JSON(http.StatusOK, gin.H{"status": "Request was recorded successfully!"})
     })
     router.GET("/locais/:name", func(c *gin.Context) {
         name := c.Param("name")
