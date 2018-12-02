@@ -26,14 +26,14 @@ type User struct {
     
 type Location struct {
     gorm.Model
-    Name        string      `json:"name"    binding:"required"`
-    Type        string      `json:"type"    binding:"required"`
-    Email       string      `json:"email"   gorm:"default:'null'"`
-    Phone       int64       `json:"phone"   binding:"required"`
-    Street      string      `json:"street"  binding:"required"`
-    Optional    string      `json:"opt"     gorm:"default:'null'"`
-    Number      int64       `json:"number"  binding:"required"`
-    Zipcode     int64       `json:"zipcode" binding:"required"`
-    Comment     string      `json:"comment" gorm:"default:'null'"`
-    PictureURL  string      `json:"pic_url" gorm:"default:'null'"`
+    Name        string      `json:"name"`
+    Type        string      `json:"type"`
+    Email       string      `json:"email"   gorm:"default:'none'"`
+    Phone       int64       `json:"phone"`
+    Street      string      `json:"street"`
+    Optional    string      `json:"opt"     gorm:"default:'none'"`
+    Number      int64       `json:"number"`
+    Zipcode     int64       `json:"zipcode"`
+    Comment     string      `json:"comment" gorm:"default:'none'"`
+    PictureURL  string      `json:"pic_url" gorm:"default:'none'"`
 }
