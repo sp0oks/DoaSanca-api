@@ -22,19 +22,22 @@ func pingDB() error {
 
 func setupDB() error {
     err := pingDB()
-    if err == nil {
-        if !db.HasTable(&User{}) {
-            db.CreateTable(&User{})
-            db.Create(&User{
+    
+    if err != nil {
+        return err
+    }
+    if !db.HasTable(&User{}) {
+        db.CreateTable(&User{})
+        db.Create(&User{
                 Name: "Gabriel Alves", 
                 Email: "g4briel.4lves@gmail.com", 
                 Coordinates: Coordinate{Latitude: -22.0027819, 
                                         Longitude:-47.8970543},
-            })
-        }
-        if !db.HasTable(&Location{}) {
-            db.CreateTable(&Location{})
-            db.Create(&Location{
+        })
+    }
+    if !db.HasTable(&Location{}) {
+        db.CreateTable(&Location{})
+        db.Create(&Location{
                 Name: "Nave Sal da Terra",
                 Type: "Brinquedo",
                 Phone: 1633727823,
@@ -42,9 +45,9 @@ func setupDB() error {
                                  Number: 428,
                                  Zipcode: 13573560},
             })
-        }
     }
-    return err
+    
+    return nil
 }
 
 func getLocationByName(name string) Location {

@@ -20,7 +20,7 @@ type User struct {
     gorm.Model
     Name        string      `json:"name"    binding:"required"`
     Email       string      `json:"email"   binding:"required"`
-    Coordinates Coordinate  `json:"coords"  binding:"required"`
+    Coordinates Coordinate  `json:"coords"`
 }
     
 type Location struct {
@@ -29,7 +29,7 @@ type Location struct {
     Type        string      `json:"type"    binding:"required"`
     Email       string      `json:"email"   gorm:"default:'null'"`
     Phone       int64       `json:"phone"   binding:"required"`
-    Address     Address     `json:"address" binding:"required"`
+    Address     Address     `json:"address"`
     Comment     string      `json:"comment" gorm:"default:'null'"`
     PictureURL  string      `json:"pic_url" gorm:"default:'null'"`
 }
