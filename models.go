@@ -1,8 +1,6 @@
 package main
 
 import (
-    "time"
-
     "github.com/jinzhu/gorm"
 )
 
@@ -23,7 +21,6 @@ type User struct {
     Name        string      `json:"name"    binding:"required"`
     Email       string      `json:"email"   binding:"required"`
     Coordinates Coordinate  `json:"coords"  binding:"required"`
-    CreatedAt   time.Time
 }
     
 type Location struct {
@@ -35,5 +32,4 @@ type Location struct {
     Address     Address     `json:"address" binding:"required"`
     Comment     string      `json:"comment" gorm:"default:'null'"`
     PictureURL  string      `json:"pic_url" gorm:"default:'null'"`
-    CreatedAt   time.Time   
 }
