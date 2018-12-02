@@ -26,6 +26,8 @@ func setupDB() error {
     if err != nil {
         return err
     }
+
+    db.DropTableIfExists(&User{}, &Location{})
     if !db.HasTable(&User{}) {
         db.CreateTable(&User{})
         db.Create(&User{
@@ -45,8 +47,7 @@ func setupDB() error {
                                  Number: 428,
                                  Zipcode: 13573560},
             })
-    }
-    
+    }     
     return nil
 }
 

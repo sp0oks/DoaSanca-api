@@ -5,15 +5,15 @@ import (
 )
 
 type Coordinate struct {
-    Latitude    float64     `json:"latitude"  binding:"required"`
-    Longitude   float64     `json:"longitude" binding:"required"`
+    Latitude    float64     `json:"latitude"`
+    Longitude   float64     `json:"longitude"`
 }
 
 type Address struct {
-    Street      string      `json:"street"  binding:"required"`
+    Street      string      `json:"street"`
     Optional    string      `json:"opt"     gorm:"default:'null'"`
-    Number      int64       `json:"number"  binding:"required"`
-    Zipcode     int64       `json:"zipcode" binding:"required"`
+    Number      int64       `json:"number"`
+    Zipcode     int64       `json:"zipcode"`
 }
 
 type User struct {
