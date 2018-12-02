@@ -46,7 +46,7 @@ func setupDB() error {
                 Street: "R. Dep. Antonio Donato",
                 Number: 428,
                 Zipcode: 13573560,
-            })
+        })
     }     
     return nil
 }
