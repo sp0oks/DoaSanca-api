@@ -7,32 +7,35 @@ import (
 )
 
 type Coordinate struct {
-    Latitude    float64     `json:"lat"     binding:"required"`
-    Longitude   float64     `json:"lon"     binding:"required"`
+    Latitude    float64     `json:"latitude"  binding:"required"`
+    Longitude   float64     `json:"longitude" binding:"required"`
 }
 
 type Address struct {
     Street      string      `json:"street"  binding:"required"`
-    Optional    string      `json:"opt"`
+    Optional    string      `json:"opt"     gorm:"default:'null'"`
     Number      int64       `json:"number"  binding:"required"`
-    ZipCode     int64       `json:"zipcode" binding:"required"`
+    Zipcode     int64       `json:"zipcode" binding:"required"`
 }
 
 type User struct {
     gorm.Model
-    Email       string      `json:"email"   binding:"required"`
+    ID          uint        `gorm:"AUTO_INCREMENT"`
     Name        string      `json:"name"    binding:"required"`
+    Email       string      `json:"email"   binding:"required"`
     Coordinates Coordinate  `json:"coords"  binding:"required"`
-    Date        time.Time
+    CreatedAt   time.Time
 }
     
 type Location struct {
     gorm.Model
+    ID          uint        `gorm:"AUTO_INCREMENT"`
     Name        string      `json:"name"    binding:"required"`
     Type        string      `json:"type"    binding:"required"`
-    Email       string      `json:"email"   binding:"required"`
+    Email       string      `json:"email"   gorm:"default:'null'"`
     Phone       int64       `json:"phone"   binding:"required"`
     Address     Address     `json:"address" binding:"required"`
-    Comment     string      `json:"comment"`
-    Date        time.Time   
+    Comment     string      `json:"comment" gorm:"default:'null'"`
+    PictureURL  string      `json:"pic_url" gorm:"default:'null'"`
+    CreatedAt   time.Time   
 }

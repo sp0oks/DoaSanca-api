@@ -10,34 +10,48 @@ import (
 
 func main() {
     port := os.Getenv("PORT")
-    
+
     if port == "" {
         log.Printf("$PORT not set, defaulting PORT to 8080.\n")
         port = "8080"
     }
 
-    router := gin.New()
-    router.Use(gin.Logger())
+    router := gin.Default()
+    db, err := getDB()
+
+    if err != nil {
+        log.Fatalf("Failed to get database connection: %q", err)
+    }
+    defer db.Close()
     
     router.GET("/", func(c *gin.Context) {
-		c.String(http.StatusOK, "Hello user!")
+        c.JSON(http.StatusOK, gin.H{"status": "Welcome to the DoaSanca RESTful API!"})
 	})
-
-    router.GET("/locais/:name", func(c *gin.Context) {
-        name := c.Param("name")
-		c.String(http.StatusOK, "Página do local %s!", name)
-	})
-   
-    db, err := getDB()
     router.GET("/db/status", func(c *gin.Context) {
-        err = pingDB(db)
-        
+        err = pingDB()
         if err != nil {
-            c.String(http.StatusInternalServerError, "%q", err)
+            c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
         } else {
-            c.String(http.StatusOK, "DB connection is fine.")
+            c.JSON(http.StatusOK, gin.H{"status": "DB connection is fine."})
         }
     })
-    
+    router.GET("/locais", func(c *gin.Context) {
+        response := getLocations()
+        if response.Name == "" {
+            c.JSON(http.StatusNoContent, "No results were found.")
+        } else {
+            c.JSON(http.StatusOK, response)
+        }
+    })
+    router.GET("/locais/:name", func(c *gin.Context) {
+        name := c.Param("name")
+        response := getLocationByName(name)
+		if response.Name == "" {
+            c.JSON(http.StatusNoContent, gin.H{"error": "No results were found."})
+        } else {
+            c.JSON(http.StatusOK, response)
+        }
+	})
+
     router.Run(":" + port)
 }

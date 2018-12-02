@@ -2,23 +2,84 @@ package main
 
 import (
     "os"
-    "context"
-    "database/sql"
 
+    "github.com/jinzhu/gorm"
     _ "github.com/jinzhu/gorm/dialects/postgres" 
 )
 
-func getDB() (*sql.DB, error) {
-    db, err := sql.Open("postgres", os.Getenv("DATABASE_URL"))
+var db *gorm.DB
+
+func getDB() (*gorm.DB, error) {
+    var err error
+    db, err = gorm.Open("postgres", os.Getenv("DATABASE_URL"))
     return db, err
 }
 
-func pingDB (db *sql.DB) error {
-    ctx := context.Background()
-    err := db.PingContext(ctx)
+func pingDB() error {
+    err := db.DB().Ping()
     return err
 }
 
-func setupDB (db *sql.DB) error {
-    return nil
+func setupDB() error {
+    err := pingDB()
+    if err != nil {
+        if !db.HasTable(&User{}) {
+            db.CreateTable(&User{})
+        }
+        if !db.HasTable(&Location{}) {
+            db.CreateTable(&Location{})
+        }
+        db.Create(&User{
+            Name: "Gabriel Alves", 
+            Email: "g4briel.4lves@gmail.com", 
+            Coordinates: Coordinate{Latitude: -22.0027819, 
+                                    Longitude:-47.8970543},
+        })
+        db.Create(&Location{
+            Name: "Nave Sal da Terra",
+            Type: "Brinquedo",
+            Phone: 1633727823,
+            Address: Address{Street: "R. Dep. Antonio Donato",
+                             Number: 428,
+                             Zipcode: 13573560},
+        })
+    }
+    return err
 }
+
+func getLocationByName(name string) Location {
+    var location Location
+    db.Where("name = ?", name).Find(&location)
+    if db.RecordNotFound() {
+        location.Name = ""
+    }
+    return location
+}
+
+func getLocations() Location {
+    var locations Location
+    db.Find(&locations)
+    if db.RecordNotFound() {
+        locations.Name = ""
+    }
+    return locations
+}
+
+func getUserByEmail(email string) User {
+    var user User
+    db.Where("email = ?", email).Find(&user)
+    if db.RecordNotFound() {
+        user.Name = ""
+    }
+    return user
+}
+
+func getUsers() User {
+    var users User
+    db.Find(&users)
+    if db.RecordNotFound() {
+        users.Name = ""
+    }
+    return users
+}
+
