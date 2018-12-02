@@ -20,7 +20,6 @@ type Address struct {
 
 type User struct {
     gorm.Model
-    ID          uint        `gorm:"AUTO_INCREMENT"`
     Name        string      `json:"name"    binding:"required"`
     Email       string      `json:"email"   binding:"required"`
     Coordinates Coordinate  `json:"coords"  binding:"required"`
@@ -29,7 +28,6 @@ type User struct {
     
 type Location struct {
     gorm.Model
-    ID          uint        `gorm:"AUTO_INCREMENT"`
     Name        string      `json:"name"    binding:"required"`
     Type        string      `json:"type"    binding:"required"`
     Email       string      `json:"email"   gorm:"default:'null'"`
