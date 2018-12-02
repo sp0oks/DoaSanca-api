@@ -30,22 +30,25 @@ func main() {
 	})
 
     // Management routes
-    router.GET("/db/status", func(c *gin.Context) {
-        err = pingDB()
-        if err != nil {
-            c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-        } else {
-            c.JSON(http.StatusOK, gin.H{"status": "DB connection is fine."})
-        }
-    })
-    router.GET("/db/setup", func(c *gin.Context) {
-        err = setupDB()
-        if err != nil {
-            c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-        } else {
-            c.JSON(http.StatusOK, gin.H{"status": "DB has been setup correctly."})
-        }
-    })
+    debug := router.Group("/db") 
+    {
+        debug.GET("/status", func(c *gin.Context) {
+            err = pingDB()
+            if err != nil {
+                c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+            } else {
+                c.JSON(http.StatusOK, gin.H{"status": "DB connection is fine."})
+            }
+        })
+        debug.GET("/setup", func(c *gin.Context) {
+            err = setupDB()
+            if err != nil {
+                c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+            } else {
+                c.JSON(http.StatusOK, gin.H{"status": "DB has been setup correctly."})
+            }
+        })
+    }
     
     // API routes
     router.GET("/locais", func(c *gin.Context) {
@@ -56,14 +59,16 @@ func main() {
             c.JSON(http.StatusOK, response)
         }
     })
-    router.POST("/locais/", func(c *gin.Context) {
+    router.POST("/locais", func(c *gin.Context) {
         var request Location
         if err = c.ShouldBindJSON(&request); err != nil {
             c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
         } else {
-            result, _ := json.Marshal(request)
-            c.JSON(http.StatusOK, gin.H{"status": "Request was recorded successfully!",
-                                        "data": result})
+            err = saveNewLocation(request)
+            if err != nil {
+                c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
+            }
+            c.JSON(http.StatusOK, gin.H{"status": "Request was recorded successfully!"})
         }
     })
     router.GET("/locais/:name", func(c *gin.Context) {

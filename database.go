@@ -2,6 +2,7 @@ package main
 
 import (
     "os"
+    "errors"
 
     "github.com/jinzhu/gorm"
     _ "github.com/jinzhu/gorm/dialects/postgres" 
@@ -85,5 +86,15 @@ func getUsers() User {
         users.Name = ""
     }
     return users
+}
+
+func saveNewLocation(loc Location) error {
+    var err error
+    if db.NewRecord(loc) {
+        db.Create(loc)
+    } else {
+        err = errors.New("Record already exists!")
+    }
+    return err
 }
 
