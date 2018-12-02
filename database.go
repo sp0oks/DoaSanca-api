@@ -91,7 +91,7 @@ func getUsers() User {
 func saveNewLocation(loc Location) error {
     var err error
     if db.NewRecord(loc) {
-        db.Create(loc)
+        db.Create(&loc)
     } else {
         err = errors.New("Record already exists!")
     }
