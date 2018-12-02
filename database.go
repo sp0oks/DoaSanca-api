@@ -23,7 +23,7 @@ func pingDB() error {
 func setupDB() error {
     err := pingDB()
     if err == nil {
-        if !db.HasTable(&User{}) {
+        //if !db.HasTable(&User{}) {
             db.CreateTable(&User{})
             db.Create(&User{
                 Name: "Gabriel Alves", 
@@ -31,7 +31,7 @@ func setupDB() error {
                 Coordinates: Coordinate{Latitude: -22.0027819, 
                                         Longitude:-47.8970543},
             })
-        }
+        //}
         if !db.HasTable(&Location{}) {
             db.CreateTable(&Location{})
             db.Create(&Location{
