@@ -21,26 +21,25 @@ func pingDB() error {
     return err
 }
 
-func setupDB() error {
+func doSetupDB() error {
     err := pingDB()
-    
     if err != nil {
         return err
     }
-
     db.DropTableIfExists(&User{}, &Location{})
     if !db.HasTable(&User{}) {
         db.CreateTable(&User{})
-        db.Create(&User{
+    /*    db.Create(&User{
                 Name: "Gabriel Alves", 
                 Email: "g4briel.4lves@gmail.com", 
                 Latitude: -22.0027819, 
                 Longitude:-47.8970543,
         })
+    */
     }
     if !db.HasTable(&Location{}) {
         db.CreateTable(&Location{})
-        db.Create(&Location{
+    /*    db.Create(&Location{
                 Name: "Nave Sal da Terra",
                 Type: "Brinquedo",
                 Phone: 1633727823,
@@ -48,6 +47,7 @@ func setupDB() error {
                 Number: 428,
                 Zipcode: 13573560,
         })
+    */
     }     
     return nil
 }
@@ -76,12 +76,9 @@ func getUserByEmail(email string) User {
     return user
 }
 
-func getUsers() User {
-    var users User
+func getUsers() []User {
+    var users []User
     db.Find(&users)
-    if db.RecordNotFound() {
-        users.Name = ""
-    }
     return users
 }
 
@@ -89,6 +86,16 @@ func saveNewLocation(loc Location) error {
     var err error
     if db.NewRecord(loc) {
         db.Create(&loc)
+    } else {
+        err = errors.New("Record already exists!")
+    }
+    return err
+}
+
+func saveNewUser(usr User) error {
+    var err error
+    if db.NewRecord(usr) {
+        db.Create(&usr)
     } else {
         err = errors.New("Record already exists!")
     }

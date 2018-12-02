@@ -27,58 +27,17 @@ func main() {
     router.GET("/", func(c *gin.Context) {
         c.JSON(http.StatusOK, gin.H{"status": "Welcome to the DoaSanca RESTful API!"})
 	})
-
     // Management routes
     debug := router.Group("/db") 
     {
-        debug.GET("/status", func(c *gin.Context) {
-            err = pingDB()
-            if err != nil {
-                c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-            } else {
-                c.JSON(http.StatusOK, gin.H{"status": "DB connection is fine."})
-            }
-        })
-        debug.GET("/setup", func(c *gin.Context) {
-            err = setupDB()
-            if err != nil {
-                c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-            } else {
-                c.JSON(http.StatusOK, gin.H{"status": "DB has been setup correctly."})
-            }
-        })
+        debug.GET("/status", dbStatusHandler)
+        debug.GET("/setup", dbSetupHandler)
     }
-    
     // API routes
-    router.GET("/locais", func(c *gin.Context) {
-        response := getLocations()
-        if len(response) == 0 {
-            c.JSON(http.StatusNoContent, "No results were found.")
-        } else {
-            c.JSON(http.StatusOK, response)
-        }
-    })
-    router.POST("/locais", func(c *gin.Context) {
-        var request Location
-        if err = c.ShouldBindJSON(&request); err != nil {
-            c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-        } else {
-            err = saveNewLocation(request)
-            if err != nil {
-                c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
-            }
-            c.JSON(http.StatusOK, gin.H{"status": "Request was recorded successfully!"})
-        }
-    })
-    router.GET("/locais/:name", func(c *gin.Context) {
-        name := c.Param("name")
-        response := getLocationByName(name)
-		if response.Name == "" {
-            c.JSON(http.StatusNoContent, gin.H{"error": "No results were found."})
-        } else {
-            c.JSON(http.StatusOK, response)
-        }
-	})
-
+    router.GET("/locais", getLocaisHandler)
+    router.POST("/locais", setLocalHandler)
+    router.GET("/local/:name", getLocalHandler)
+    router.GET("/usuarios", getUsuariosHandler)
+    
     router.Run(":" + port)
 }
