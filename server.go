@@ -27,6 +27,8 @@ func main() {
     router.GET("/", func(c *gin.Context) {
         c.JSON(http.StatusOK, gin.H{"status": "Welcome to the DoaSanca RESTful API!"})
 	})
+
+    // Management routes
     router.GET("/db/status", func(c *gin.Context) {
         err = pingDB()
         if err != nil {
@@ -35,6 +37,16 @@ func main() {
             c.JSON(http.StatusOK, gin.H{"status": "DB connection is fine."})
         }
     })
+    router.GET("/db/setup", func(c *gin.Context) {
+        err = setupDB()
+        if err != nil {
+            c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+        } else {
+            c.JSON(http.StatusOK, gin.H{"status": "DB has been setup correctly."})
+        }
+    })
+    
+    // API routes
     router.GET("/locais", func(c *gin.Context) {
         response := getLocations()
         if response.Name == "" {
