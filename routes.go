@@ -28,7 +28,7 @@ func getLocaisHandler(c *gin.Context) {
     if len(response) == 0 {
         c.JSON(http.StatusNoContent, "No results were found.")
     } else {
-        c.JSON(http.StatusOK, response)
+        c.JSON(http.StatusOK, gin.H{"locais": response})
     }
 }
 
@@ -60,7 +60,7 @@ func getUsuariosHandler (c *gin.Context) {
     if len(response) == 0 {
         c.JSON(http.StatusNoContent, "No results were found.")
     } else {
-        c.JSON(http.StatusOK, response)
+        c.JSON(http.StatusOK, gin.H{"usuarios": response})
     }
 }
 
