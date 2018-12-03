@@ -63,3 +63,13 @@ func getUsuariosHandler (c *gin.Context) {
         c.JSON(http.StatusOK, response)
     }
 }
+
+func getUsuarioHandler (c *gin.Context) {
+     email := c.Param("email")
+     response := getUserByEmail(email)
+     if response.Name == "" {
+         c.JSON(http.StatusNoContent, gin.H{"error": "No results were found."})
+     } else {
+         c.JSON(http.StatusOK, response)
+     }
+}

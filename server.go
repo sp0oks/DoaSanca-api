@@ -24,8 +24,11 @@ func main() {
     }
     defer db.Close()
     
+    // Base URL
     router.GET("/", func(c *gin.Context) {
-        c.JSON(http.StatusOK, gin.H{"status": "Welcome to the DoaSanca RESTful API!"})
+        c.JSON(http.StatusOK, gin.H{"status": "Welcome to the DoaSanca RESTful API!",
+                                    "location endpoint": "/locais",
+                                    "users endpoint": "/usuarios"})
 	})
     // Management routes
     debug := router.Group("/db") 
@@ -36,8 +39,9 @@ func main() {
     // API routes
     router.GET("/locais", getLocaisHandler)
     router.POST("/locais", setLocalHandler)
-    router.GET("/local/:name", getLocalHandler)
+    router.GET("/locais/:name", getLocalHandler)
     router.GET("/usuarios", getUsuariosHandler)
+    router.GET("/usuarios/:email", getUsuarioHandler)
     
     router.Run(":" + port)
 }
