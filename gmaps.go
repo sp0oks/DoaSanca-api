@@ -1,5 +1,5 @@
 package main
 
 import (
-    _ "googlemaps.github.io/maps"
+    _ "github.com/googlemaps/google-maps-services-go"
 )

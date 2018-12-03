@@ -15,6 +15,12 @@
 			"revisionTime": "2018-09-17T14:00:05Z"
 		},
 		{
+			"checksumSHA1": "SDsvuycVhKOlawaaGW2hHZytFcQ=",
+			"path": "github.com/googlemaps/google-maps-services-go",
+			"revision": "1d143d7e96e5d9451f4f94ddc785d36827add393",
+			"revisionTime": "2018-11-29T11:35:24Z"
+		},
+		{
 			"checksumSHA1": "BVLcEDQelqXp6x9u4mbrxE7rxKs=",
 			"path": "github.com/jinzhu/gorm",
 			"revision": "472c70caa40267cb89fd8facb07fe6454b578626",
@@ -61,10 +67,6 @@
 			"path": "golang.org/x/time/rate",
 			"revision": "85acf8d2951cb2a3bde7632f9ff273ef0379bcbd",
 			"revisionTime": "2018-11-08T03:19:45Z"
-		},
-		{
-			"path": "googlemaps.github.io/maps",
-			"revision": ""
 		},
 		{
 			"checksumSHA1": "2BajJS14EhaourgaOfiqxCcSJDA=",
